@@ -1,0 +1,30 @@
+<!doctype html>
+
+<title>Meeting Times</title>
+<table border="8" cellpadding="7">
+  <tr>
+    <th>Room</th>
+    <th colspan="3">Current Meeting</th>
+    <th colspan="3">Next Meeting</th>
+  </tr>
+  {% for room_name, room_attrs in rooms|dictsort %}
+    <tr>
+      <td>  {{ room_name }}  </td>
+      {% if room_attrs['cur_status'] == 'Occupied' %}
+      <td>  {{ room_attrs['cur_subject'] }}  </td>
+      <td>  {{ room_attrs['cur_date'] }}  </td>
+      <td>  {{ room_attrs['cur_start'] }} - {{ room_attrs['cur_end'] }}  </td>
+      {% else %}
+      <td colspan="3">  <strong> <p style="color:green;"> Available </p></strong> </td>
+      {% endif %}
+  
+      {% if room_attrs['next_status'] == 'Occupied' %}
+      <td>  {{ room_attrs['next_subject'] }}  </td>
+      <td>  {{ room_attrs['next_date'] }}  </td>
+      <td>  {{ room_attrs['next_start'] }} - {{ room_attrs['next_end'] }} </td>
+      {% else %}
+      <td colspan=3>  No Future Meetings Scheduled  </td>
+      {% endif %}
+    </tr>
+  {% endfor %}
+</table>
